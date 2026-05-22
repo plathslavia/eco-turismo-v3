@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const ctrl = require('../controllers/adminController');
+const { verificarToken, soloAdmin } = require('../middleware/authMiddleware');
+router.use(verificarToken, soloAdmin);
+router.get('/metricas', ctrl.obtenerMetricas);
+router.get('/usuarios', ctrl.listarUsuarios);
+router.patch('/usuarios/:id/estado', ctrl.cambiarEstadoUsuario);
+router.get('/reservas', ctrl.listarReservas);
+router.delete('/reservas/:id', ctrl.eliminarReserva);
+router.get('/resenas', ctrl.listarResenas);
+router.delete('/resenas/:id', ctrl.eliminarResena);
+router.delete('/alojamientos/:id', ctrl.eliminarAlojamiento);
+module.exports = router;

@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const ctrl = require('../controllers/reservaController');
+const { verificarToken, soloAnfitrion } = require('../middleware/authMiddleware');
+router.post('/', verificarToken, ctrl.crearReserva);
+router.get('/mis-reservas', verificarToken, ctrl.misReservas);
+router.delete('/:id', verificarToken, ctrl.cancelarReserva);
+router.get('/anfitrion', verificarToken, soloAnfitrion, ctrl.reservasDeAnfitrion);
+router.patch('/:id/estado', verificarToken, ctrl.cambiarEstadoReserva);
+router.get('/alojamiento/:id/disponibilidad', ctrl.disponibilidad);
+module.exports = router;

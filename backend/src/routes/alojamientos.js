@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const ctrl = require('../controllers/alojamientoController');
+const { verificarToken, soloAnfitrion } = require('../middleware/authMiddleware');
+router.get('/', ctrl.listarAlojamientos);
+router.get('/mis-alojamientos', verificarToken, soloAnfitrion, ctrl.misAlojamientos);
+router.get('/:id', ctrl.obtenerAlojamiento);
+router.post('/', verificarToken, soloAnfitrion, ctrl.crearAlojamiento);
+router.put('/:id', verificarToken, soloAnfitrion, ctrl.editarAlojamiento);
+module.exports = router;
